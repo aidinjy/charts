@@ -104,7 +104,7 @@ image:
 
 ## @param architecture Redis&reg; architecture. Allowed values: `standalone` or `replication`
 ##
-architecture: replication
+architecture: standalone
 ## Redis&reg; Authentication parameters
 ## ref: https://github.com/bitnami/containers/tree/main/bitnami/redis#setting-the-server-password-on-first-run
 ##
@@ -114,7 +114,7 @@ auth:
   enabled: true
   ## @param auth.sentinel Enable password authentication on sentinels too
   ##
-  sentinel: true
+  sentinel: false
   ## @param auth.password Redis&reg; password
   ## Defaults to a random 10-character alphanumeric string if not set
   ##
@@ -149,7 +149,7 @@ existingConfigmap: ""
 master:
   ## @param master.count Number of Redis&reg; master instances to deploy (experimental, requires additional configuration)
   ##
-  count: 1
+  count: 0
   ## @param master.configuration Configuration for Redis&reg; master nodes
   ## ref: https://redis.io/topics/config
   ##
@@ -535,7 +535,7 @@ master:
 replica:
   ## @param replica.replicaCount Number of Redis&reg; replicas to deploy
   ##
-  replicaCount: 3
+  replicaCount: 1
   ## @param replica.configuration Configuration for Redis&reg; replicas nodes
   ## ref: https://redis.io/topics/config
   ##
@@ -581,8 +581,8 @@ replica:
   ## @param replica.externalMaster.port Port for Redis service external master host
   ##
   externalMaster:
-    enabled: false
-    host: ""
+    enabled: true
+    host: "127.0.0.1"
     port: 6379
   ## @param replica.containerPorts.redis Container port to open on Redis&reg; replicas nodes
   ##
@@ -1374,7 +1374,7 @@ tls:
 metrics:
   ## @param metrics.enabled Start a sidecar prometheus exporter to expose Redis&reg; metrics
   ##
-  enabled: false
+  enabled: true
   ## Bitnami Redis&reg; Exporter image
   ## ref: https://hub.docker.com/r/bitnami/redis-exporter/tags/
   ## @param metrics.image.registry Redis&reg; Exporter image registry
